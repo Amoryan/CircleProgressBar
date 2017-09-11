@@ -233,7 +233,7 @@ class CircleProgressBar : View {
                 }
                 onProgressChangeListener.onProgressChanged(temp)
             }
-            if (mDrawDegree < mProgress) {
+            if (mDrawDegree < mProgressDegree) {
                 mDrawDegree += animVelocity
                 mDrawDegree = Math.min(mDrawDegree, mProgress)
                 invalidate()
