@@ -24,3 +24,5 @@ openAnimation是否开启动画
 ## 进度相关属性
 maxProgress设置最大进度
 <br />progress设置进度
+## 进度变化监听事件
+可以实现OnProgressChangeListener接口
