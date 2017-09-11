@@ -18,9 +18,9 @@ backColor设置底色
 <br />useGradient是否使用渐变色
 <br />progressColor如果不使用渐变色，这个属性会设置进度条的颜色
 <br />startColor和endColor如果使用渐变色，这两个属性是设置起始和终止颜色
-<br />##动效相关属性
-<br />openAnimation是否开启动画
+## 动效相关属性
+openAnimation是否开启动画
 <br />animVelocity进度变化的速度
-<br />##进度相关属性
-<br />maxProgress设置最大进度
+## 进度相关属性
+maxProgress设置最大进度
 <br />progress设置进度
