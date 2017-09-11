@@ -1,7 +1,7 @@
 # CircleProgressBar
 最近项目里面需要做一个如下的控件。
-\n![测试图片](https://github.com/Amoryan/CircleProgressBar/raw/master/screenShort/1.png)
-\n无奈不想用别人做好的，于是自己就做了一个，先上效果图。
+```![测试图片](https://github.com/Amoryan/CircleProgressBar/raw/master/screenShort/1.png)
+```\n无奈不想用别人做好的，于是自己就做了一个，先上效果图。
 \n![测试图片](https://github.com/Amoryan/CircleProgressBar/raw/master/screenShort/result.gif)
 支持以下属性
 ##Paint相关属性
