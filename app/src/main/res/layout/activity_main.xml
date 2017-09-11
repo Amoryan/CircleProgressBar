@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f9fa"
+    tools:context="com.amoryan.demo.kotlin.MainActivity">
+
+    <com.amoryan.demo.kotlin.CircleProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:animVelocity="3"
+        app:capStyle="ROUND"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:maxProgress="270"
+        app:openAnimation="true"
+        app:progress="120"
+        app:radius="83dp"
+        app:rotateDegree="120"
+        app:startDegree="15"
+        app:strokeWidth="12dp"
+        app:sweepDegree="270"
+        app:useGradient="true"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#41a9f8"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressbar"
+        app:layout_constraintLeft_toLeftOf="@+id/progressbar"
+        app:layout_constraintRight_toRightOf="@+id/progressbar"
+        app:layout_constraintTop_toTopOf="@+id/progressbar"
+        tools:text="hello"/>
+
+    <TextView
+        android:id="@+id/tv_startDegree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="起始角度"
+        app:layout_constraintBottom_toBottomOf="@+id/startDegree_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/startDegree_bar"/>
+
+    <SeekBar
+        android:id="@+id/startDegree_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="180"
+        android:progress="15"
+        app:layout_constraintLeft_toRightOf="@+id/tv_startDegree"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressbar"/>
+
+    <TextView
+        android:id="@+id/tv_rotateDegree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="旋转角度"
+        app:layout_constraintBottom_toBottomOf="@+id/rotateDegree_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rotateDegree_bar"/>
+
+    <SeekBar
+        android:id="@+id/rotateDegree_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="360"
+        android:progress="120"
+        app:layout_constraintLeft_toRightOf="@+id/tv_rotateDegree"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDegree_bar"/>
+
+
+    <TextView
+        android:id="@+id/tv_width"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="边宽"
+        app:layout_constraintBottom_toBottomOf="@+id/width_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/width_bar"/>
+
+    <SeekBar
+        android:id="@+id/width_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="60"
+        android:progress="36"
+        app:layout_constraintLeft_toLeftOf="@+id/startDegree_bar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rotateDegree_bar"/>
+
+    <TextView
+        android:id="@+id/tv_sweep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="绘制角度"
+        app:layout_constraintBottom_toBottomOf="@+id/sweepDegree_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sweepDegree_bar"/>
+
+    <SeekBar
+        android:id="@+id/sweepDegree_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="360"
+        android:progress="270"
+        app:layout_constraintLeft_toLeftOf="@+id/startDegree_bar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/width_bar"/>
+
+    <CheckBox
+        android:id="@+id/openAnimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开动画"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sweepDegree_bar"/>
+
+</android.support.constraint.ConstraintLayout>

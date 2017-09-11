@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleProgressBar">
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="capStyle" format="enum">
+            <enum name="BUTT" value="0"/>
+            <enum name="ROUND" value="1"/>
+            <enum name="SQUARE" value="2"/>
+        </attr>
+
+        <attr name="radius" format="dimension"/>
+        <attr name="startDegree" format="float"/>
+        <attr name="rotateDegree" format="float"/>
+        <attr name="sweepDegree" format="float"/>
+
+        <attr name="backColor" format="color"/>
+        <attr name="useGradient" format="boolean"/>
+        <attr name="progressColor" format="color"/>
+        <attr name="startColor" format="color"/>
+        <attr name="endColor" format="color"/>
+
+        <attr name="openAnimation" format="boolean"/>
+        <attr name="animVelocity" format="integer"/>
+
+        <attr name="maxProgress" format="float"/>
+        <attr name="progress" format="float"/>
+    </declare-styleable>
+</resources>
