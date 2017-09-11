@@ -78,6 +78,7 @@ class CircleProgressBar : View {
         mProgress = attrs.getFloat(R.styleable.CircleProgressBar_progress, 0f)
 
         setPaint()
+        mProgress = Math.min(mMaxProgress, mProgress)
         mProgressDegree = mProgress / mMaxProgress * mSweepDegree
         mDrawDegree = 0f
     }
