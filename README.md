@@ -9,15 +9,15 @@ strokeWidth指定paint的宽度
 <br />capStyle对应于Paint.Cap
 ## 绘制相关属性
 radius进度条的绘制半径，如果使用这个半径测量出来的宽高大于了最大的值，则不会使用这个值，而是取最小兼容值
-<br />startDegree从哪个其实角度开始画
-<br />rotateDegree旋转角度
+<br />startDegree从哪个起始角度开始画
+<br />rotateDegree canvas的旋转角度
 <br />sweepDegree绘制角度
-<br />比如rotate为0，startDegree为0，sweepDegree为360，就是从3点钟方向绘制360度
+<br />比如rotate为0，startDegree为0，sweepDegree为360，就是从3点钟方向绘制360度，这点和canvas的drawArc默认绘制是一样的
 ## 颜色相关属性
 backColor设置底色
 <br />useGradient是否使用渐变色
 <br />progressColor如果不使用渐变色，这个属性会设置进度条的颜色
-<br />startColor和endColor如果使用渐变色，这两个属性是设置起始和终止颜色
+<br />startColor和endColor如果使用渐变色，这两个属性是设置渐变的起始和终止颜色
 ## 动效相关属性
 openAnimation是否开启动画
 <br />animVelocity进度变化的速度
