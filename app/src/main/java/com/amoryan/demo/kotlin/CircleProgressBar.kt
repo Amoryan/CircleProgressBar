@@ -15,9 +15,6 @@ class CircleProgressBar : View {
 
     private lateinit var mContext: Context
 
-    private var mWidth: Int = 0
-    private var mHeight: Int = 0
-
     private var mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var mStrokeWidth: Float = 0f
     private var mCapStyle: Int = 0
@@ -185,14 +182,11 @@ class CircleProgressBar : View {
     override fun onDraw(canvas: Canvas?) {
         if (canvas == null) return
 
-        mWidth = measuredWidth
-        mHeight = measuredHeight
+        var centerX = width / 2
+        var centerY = height / 2
 
-        var centerX = mWidth / 2
-        var centerY = mHeight / 2
-
-        var useWidth = mWidth - paddingLeft - paddingRight - mStrokeWidth * 2
-        var useHeight = mHeight - paddingTop - paddingBottom - mStrokeWidth * 2
+        var useWidth = width - paddingLeft - paddingRight - mStrokeWidth * 2
+        var useHeight = height - paddingTop - paddingBottom - mStrokeWidth * 2
         var temp = Math.floor((Math.min(useWidth, useHeight) / 2).toDouble()).toFloat()
         mRadius = Math.min(temp, mRadius)
 
