@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
     private lateinit var startBar: SeekBar
     private lateinit var sweepBar: SeekBar
     private lateinit var rotateBar: SeekBar
-    private lateinit var widthBar: SeekBar
+    private lateinit var maxBar: SeekBar
+    private lateinit var currentBar: SeekBar
 
     private lateinit var openAnimation: CheckBox
 
@@ -35,8 +36,10 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
         sweepBar.setOnSeekBarChangeListener(this)
         rotateBar = findViewById(R.id.rotateDegree_bar) as SeekBar
         rotateBar.setOnSeekBarChangeListener(this)
-        widthBar = findViewById(R.id.width_bar) as SeekBar
-        widthBar.setOnSeekBarChangeListener(this)
+        maxBar = findViewById(R.id.max_bar) as SeekBar
+        maxBar.setOnSeekBarChangeListener(this)
+        currentBar = findViewById(R.id.progress_bar) as SeekBar
+        currentBar.setOnSeekBarChangeListener(this)
 
         openAnimation = findViewById(R.id.openAnimation) as CheckBox
     }
@@ -56,8 +59,13 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
             R.id.sweepDegree_bar -> {
                 progressBar.setSweepDegree(seekBar?.progress.toFloat())
             }
-            R.id.width_bar -> {
-                progressBar.setStrokeWidth(seekBar?.progress.toFloat())
+            R.id.max_bar -> {
+                currentBar.max = seekBar?.progress
+                currentBar.progress = 0
+                progressBar.setMaxProgress(seekBar?.progress.toFloat())
+            }
+            R.id.progress_bar -> {
+                progressBar.setProgress(seekBar?.progress.toFloat())
             }
         }
         progressBar.openAnimation(openAnimation.isChecked)

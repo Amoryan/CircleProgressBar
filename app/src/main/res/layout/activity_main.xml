@@ -23,7 +23,7 @@
         app:maxProgress="270"
         app:openAnimation="true"
         app:progress="120"
-        app:radius="83dp"
+        app:radius="100dp"
         app:rotateDegree="120"
         app:startDegree="15"
         app:strokeWidth="12dp"
@@ -80,26 +80,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDegree_bar"/>
 
-
-    <TextView
-        android:id="@+id/tv_width"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="边宽"
-        app:layout_constraintBottom_toBottomOf="@+id/width_bar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/width_bar"/>
-
-    <SeekBar
-        android:id="@+id/width_bar"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:max="60"
-        android:progress="36"
-        app:layout_constraintLeft_toLeftOf="@+id/startDegree_bar"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rotateDegree_bar"/>
-
     <TextView
         android:id="@+id/tv_sweep"
         android:layout_width="wrap_content"
@@ -117,7 +97,45 @@
         android:progress="270"
         app:layout_constraintLeft_toLeftOf="@+id/startDegree_bar"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/width_bar"/>
+        app:layout_constraintTop_toBottomOf="@+id/rotateDegree_bar"/>
+
+    <TextView
+        android:id="@+id/tv_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最大进度"
+        app:layout_constraintBottom_toBottomOf="@+id/max_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/max_bar"/>
+
+    <SeekBar
+        android:id="@+id/max_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="360"
+        android:progress="270"
+        app:layout_constraintLeft_toRightOf="@+id/tv_max"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sweepDegree_bar"/>
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前进度"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar"/>
+
+    <SeekBar
+        android:id="@+id/progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:max="270"
+        android:progress="200"
+        app:layout_constraintLeft_toRightOf="@+id/tv_progress"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/max_bar"/>
 
     <CheckBox
         android:id="@+id/openAnimation"
@@ -125,6 +143,6 @@
         android:layout_height="wrap_content"
         android:text="打开动画"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sweepDegree_bar"/>
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar"/>
 
 </android.support.constraint.ConstraintLayout>
