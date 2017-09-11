@@ -8,7 +8,7 @@
 strokeWidth指定paint的宽度
 capStyle对应于Paint.Cap
 ##绘制相关属性
-radius进度条的绘制半径
+radius进度条的绘制半径，如果使用这个半径测量出来的宽高大于了最大的值，则不会使用这个值，而是取最小兼容值
 startDegree从哪个其实角度开始画
 rotateDegree旋转角度
 sweepDegree绘制角度
