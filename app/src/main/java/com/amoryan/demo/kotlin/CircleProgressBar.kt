@@ -36,7 +36,7 @@ class CircleProgressBar : View {
     private var openAnimation: Boolean = false
     private var animVelocity: Int = 1
 
-    private var mMaxProgress: Float = 0f
+    private var mMaxProgress: Float = 1f
     private var mProgress: Float = 0f
 
     private var mProgressDegree: Float = 0f
@@ -74,7 +74,7 @@ class CircleProgressBar : View {
         openAnimation = attrs.getBoolean(R.styleable.CircleProgressBar_openAnimation, false)
         animVelocity = attrs.getInt(R.styleable.CircleProgressBar_animVelocity, 1)
 
-        mMaxProgress = attrs.getFloat(R.styleable.CircleProgressBar_maxProgress, 0f)
+        mMaxProgress = attrs.getFloat(R.styleable.CircleProgressBar_maxProgress, 1f)
         mProgress = attrs.getFloat(R.styleable.CircleProgressBar_progress, 0f)
 
         setPaint()
@@ -128,7 +128,7 @@ class CircleProgressBar : View {
     }
 
     fun setUseGradient(flag: Boolean) {
-        useGradient = flag;
+        useGradient = flag
     }
 
     fun setStartColor(color: Int) {
@@ -152,6 +152,7 @@ class CircleProgressBar : View {
     }
 
     fun update() {
+        mProgress = Math.min(mProgress, mMaxProgress)
         mProgressDegree = (mProgress / mMaxProgress * mSweepDegree)
         mDrawDegree = 0f
         invalidate()
