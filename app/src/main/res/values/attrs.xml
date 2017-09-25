@@ -20,7 +20,7 @@
         <attr name="endColor" format="color"/>
 
         <attr name="openAnimation" format="boolean"/>
-        <attr name="animVelocity" format="integer"/>
+        <attr name="duration" format="integer"/>
 
         <attr name="maxProgress" format="float"/>
         <attr name="progress" format="float"/>

@@ -1,5 +1,6 @@
 package com.amoryan.demo.kotlin
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -13,87 +14,82 @@ import android.view.View
  */
 class CircleProgressBar : View {
 
-    private lateinit var mContext: Context
+    private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private var strokeWidth: Float = 0f
+    private var capStyle: Int = 0
 
-    private var mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var mStrokeWidth: Float = 0f
-    private var mCapStyle: Int = 0
+    private var radius: Float = 0f
+    private var startDegree: Float = 0f
+    private var rotateDegree: Float = 0f
+    private var sweepDegree: Float = 360f
 
-    private var mRadius: Float = 0f
-    private var mStartDegree: Float = 0f
-    private var mRotateDegree: Float = 0f
-    private var mSweepDegree: Float = 360f
-
-    private var mBackColor: Int = 0
+    private var backColor: Int = 0
     private var useGradient: Boolean = false
-    private var mProgressColor: Int = 0
-    private var mStartColor: Int = 0
-    private var mEndColor: Int = 0
+    private var progressColor: Int = 0
+    private var startColor: Int = 0
+    private var endColor: Int = 0
 
     private var openAnimation: Boolean = false
-    private var animVelocity: Int = 1
+    private var duration: Long = 500
 
-    private var mMaxProgress: Float = 1f
-    private var mProgress: Float = 0f
+    private var maxProgress: Float = 1f
+    private var progress: Float = 0f
 
-    private var mProgressDegree: Float = 0f
-    private var mDrawDegree: Float = 0f
+    private var progressDegree: Float = 0f
+    private var drawDegree: Float = 0f
 
     private lateinit var onProgressChangeListener: OnProgressChangedListener
+    private var animate: ObjectAnimator? = null
 
     constructor(context: Context) : super(context) {
-        initData(context, null)
+        initData(null)
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        initData(context, attributeSet)
+        initData(attributeSet)
     }
 
-    private fun initData(context: Context, attributeSet: AttributeSet?) {
-        mContext = context
+    private fun initData(attributeSet: AttributeSet?) {
+        var attrs = context.obtainStyledAttributes(attributeSet, R.styleable.CircleProgressBar)
 
-        var attrs = mContext.obtainStyledAttributes(attributeSet, R.styleable.CircleProgressBar)
+        strokeWidth = attrs.getDimension(R.styleable.CircleProgressBar_strokeWidth, 0f)
+        capStyle = attrs.getInt(R.styleable.CircleProgressBar_capStyle, 0)
 
-        mStrokeWidth = attrs.getDimension(R.styleable.CircleProgressBar_strokeWidth, 0f)
-        mCapStyle = attrs.getInt(R.styleable.CircleProgressBar_capStyle, 0)
+        radius = attrs.getDimension(R.styleable.CircleProgressBar_radius, 0f)
+        startDegree = attrs.getFloat(R.styleable.CircleProgressBar_startDegree, 0f)
+        rotateDegree = attrs.getFloat(R.styleable.CircleProgressBar_rotateDegree, 0f)
+        sweepDegree = attrs.getFloat(R.styleable.CircleProgressBar_sweepDegree, 360f)
 
-        mRadius = attrs.getDimension(R.styleable.CircleProgressBar_radius, 0f)
-        mStartDegree = attrs.getFloat(R.styleable.CircleProgressBar_startDegree, 0f)
-        mRotateDegree = attrs.getFloat(R.styleable.CircleProgressBar_rotateDegree, 0f)
-        mSweepDegree = attrs.getFloat(R.styleable.CircleProgressBar_sweepDegree, 360f)
-
-        mBackColor = attrs.getColor(R.styleable.CircleProgressBar_backColor, Color.parseColor("#e6eef6"))
+        backColor = attrs.getColor(R.styleable.CircleProgressBar_backColor, Color.parseColor("#e6eef6"))
         useGradient = attrs.getBoolean(R.styleable.CircleProgressBar_useGradient, false)
-        mProgressColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#41a9f8"))
-        mStartColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#21ADF1"))
-        mEndColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#2287EE"))
+        progressColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#41a9f8"))
+        startColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#21ADF1"))
+        endColor = attrs.getColor(R.styleable.CircleProgressBar_progressColor, Color.parseColor("#2287EE"))
 
         openAnimation = attrs.getBoolean(R.styleable.CircleProgressBar_openAnimation, false)
-        animVelocity = attrs.getInt(R.styleable.CircleProgressBar_animVelocity, 1)
+        duration = attrs.getInt(R.styleable.CircleProgressBar_duration, 500).toLong()
 
-        mMaxProgress = attrs.getFloat(R.styleable.CircleProgressBar_maxProgress, 1f)
-        mProgress = attrs.getFloat(R.styleable.CircleProgressBar_progress, 0f)
+        maxProgress = attrs.getFloat(R.styleable.CircleProgressBar_maxProgress, 1f)
+        progress = attrs.getFloat(R.styleable.CircleProgressBar_progress, 0f)
 
         setPaint()
-        mProgress = Math.min(mMaxProgress, mProgress)
-        mProgressDegree = mProgress / mMaxProgress * mSweepDegree
-        mDrawDegree = 0f
+        update()
     }
 
     private fun setPaint() {
-        mPaint.strokeWidth = mStrokeWidth
-        when (mCapStyle) {
+        paint.strokeWidth = strokeWidth
+        when (capStyle) {
             1 -> {
-                mPaint.strokeCap = Paint.Cap.ROUND
+                paint.strokeCap = Paint.Cap.ROUND
             }
             2 -> {
-                mPaint.strokeCap = Paint.Cap.SQUARE
+                paint.strokeCap = Paint.Cap.SQUARE
             }
             else -> {
-                mPaint.strokeCap = Paint.Cap.BUTT
+                paint.strokeCap = Paint.Cap.BUTT
             }
         }
-        mPaint.style = Paint.Style.STROKE
+        paint.style = Paint.Style.STROKE
     }
 
     fun setOnProgressChangeListener(listener: OnProgressChangedListener) {
@@ -101,28 +97,32 @@ class CircleProgressBar : View {
     }
 
     fun setStrokeWidth(width: Float) {
-        mStrokeWidth = width
+        strokeWidth = width
         setPaint()
     }
 
     fun setRadius(radius: Float) {
-        mRadius = radius
+        this.radius = radius
     }
 
     fun setStartDegree(degree: Float) {
-        mStartDegree = degree
+        startDegree = degree
     }
 
     fun setRotateDegree(degree: Float) {
-        mRotateDegree = degree
+        rotateDegree = degree
+    }
+
+    fun setDuration(duration: Long) {
+        this.duration = duration
     }
 
     fun setSweepDegree(degree: Float) {
-        mSweepDegree = degree
+        sweepDegree = degree
     }
 
     fun setBackColor(color: Int) {
-        mBackColor = color
+        backColor = color
     }
 
     fun setUseGradient(flag: Boolean) {
@@ -130,11 +130,11 @@ class CircleProgressBar : View {
     }
 
     fun setStartColor(color: Int) {
-        mStartColor = color
+        startColor = color
     }
 
     fun setEndColor(color: Int) {
-        mEndColor = color
+        endColor = color
     }
 
     fun openAnimation(flag: Boolean) {
@@ -142,17 +142,33 @@ class CircleProgressBar : View {
     }
 
     fun setMaxProgress(max: Float) {
-        mMaxProgress = max
+        maxProgress = max
     }
 
     fun setProgress(progress: Float) {
-        mProgress = progress
+        this.progress = progress
+        update()
+    }
+
+    fun setDrawDegree(degree: Float) {
+        drawDegree = degree
+        invalidate()
     }
 
     fun update() {
-        mProgress = Math.min(mProgress, mMaxProgress)
-        mProgressDegree = (mProgress / mMaxProgress * mSweepDegree)
-        mDrawDegree = 0f
+        progress = Math.min(progress, maxProgress)
+        progressDegree = (progress / maxProgress * sweepDegree)
+        drawDegree = 0f
+
+        if (openAnimation) {
+            if (animate != null) {
+                animate!!.cancel()
+            }
+            animate = ObjectAnimator.ofFloat(this, "drawDegree", progressDegree)
+            animate!!.duration = duration
+            animate!!.start()
+        }
+
         invalidate()
     }
 
@@ -169,7 +185,7 @@ class CircleProgressBar : View {
                 result = specSize
             }
             MeasureSpec.AT_MOST -> {/*如果是WRAP_CONTENT，最终的大小不会超过specSize*/
-                var temp = (Math.ceil((mRadius.toDouble() + mStrokeWidth) * 2) + paddingLeft + paddingRight).toInt()
+                var temp = (Math.ceil((radius.toDouble() + strokeWidth) * 2) + paddingLeft + paddingRight).toInt()
                 result = Math.min(temp, specSize)
             }
             else -> {
@@ -185,20 +201,20 @@ class CircleProgressBar : View {
         var centerX = width / 2
         var centerY = height / 2
 
-        var useWidth = width - paddingLeft - paddingRight - mStrokeWidth * 2
-        var useHeight = height - paddingTop - paddingBottom - mStrokeWidth * 2
+        var useWidth = width - paddingLeft - paddingRight - strokeWidth * 2
+        var useHeight = height - paddingTop - paddingBottom - strokeWidth * 2
         var temp = Math.floor((Math.min(useWidth, useHeight) / 2).toDouble()).toFloat()
-        mRadius = Math.min(temp, mRadius)
+        radius = Math.min(temp, radius)
 
         canvas.save()
-        if (mRotateDegree != 0f) {
-            canvas.rotate(mRotateDegree, centerX.toFloat(), centerY.toFloat())
+        if (rotateDegree != 0f) {
+            canvas.rotate(rotateDegree, centerX.toFloat(), centerY.toFloat())
         }
         var rect = RectF(
-                centerX - mRadius,
-                centerY - mRadius,
-                centerX + mRadius,
-                centerY + mRadius
+                centerX - radius,
+                centerY - radius,
+                centerX + radius,
+                centerY + radius
         )
         drawBack(canvas, rect)
         drawProgress(canvas, centerX, centerY, rect)
@@ -206,36 +222,31 @@ class CircleProgressBar : View {
     }
 
     private fun drawBack(canvas: Canvas, rect: RectF) {
-        mPaint.shader = null
-        mPaint.color = mBackColor
-        canvas.drawArc(rect, mStartDegree, mSweepDegree, false, mPaint)
+        paint.shader = null
+        paint.color = backColor
+        canvas.drawArc(rect, startDegree, sweepDegree, false, paint)
     }
 
     private fun drawProgress(canvas: Canvas, centerX: Int, centerY: Int, rect: RectF) {
-        mPaint.color = mProgressColor
+        paint.color = progressColor
         if (useGradient) {
-            mPaint.shader = SweepGradient(centerX.toFloat(), centerY.toFloat(), mStartColor, mEndColor)
+            paint.shader = SweepGradient(centerX.toFloat(), centerY.toFloat(), startColor, endColor)
         }
         if (openAnimation) {
-            canvas.drawArc(rect, mStartDegree, mDrawDegree, false, mPaint)
+            canvas.drawArc(rect, startDegree, drawDegree, false, paint)
             if (onProgressChangeListener != null) {
                 var temp: Float
-                if (mDrawDegree == mProgressDegree) {
-                    temp = mProgress
+                if (drawDegree == progressDegree) {
+                    temp = progress
                 } else {
-                    temp = mDrawDegree * mMaxProgress / mSweepDegree
+                    temp = drawDegree * maxProgress / sweepDegree
                 }
                 onProgressChangeListener.onProgressChanged(temp)
             }
-            if (mDrawDegree < mProgressDegree) {
-                mDrawDegree += animVelocity
-                mDrawDegree = Math.min(mDrawDegree, mProgressDegree)
-                invalidate()
-            }
         } else {
-            canvas.drawArc(rect, mStartDegree, mProgressDegree, false, mPaint)
+            canvas.drawArc(rect, startDegree, progressDegree, false, paint)
             if (onProgressChangeListener != null) {
-                onProgressChangeListener.onProgressChanged(mProgress)
+                onProgressChangeListener.onProgressChanged(progress)
             }
         }
     }

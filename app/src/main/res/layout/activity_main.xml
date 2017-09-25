@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:animVelocity="3"
         app:capStyle="ROUND"
+        app:duration="500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -43,21 +43,21 @@
         tools:text="hello"/>
 
     <TextView
-        android:id="@+id/tv_startDegree"
+        android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="起始角度"
-        app:layout_constraintBottom_toBottomOf="@+id/startDegree_bar"
+        android:text="动画时间"
+        app:layout_constraintBottom_toBottomOf="@+id/duration_bar"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/startDegree_bar"/>
+        app:layout_constraintTop_toTopOf="@+id/duration_bar"/>
 
     <SeekBar
-        android:id="@+id/startDegree_bar"
+        android:id="@+id/duration_bar"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:max="180"
-        android:progress="15"
-        app:layout_constraintLeft_toRightOf="@+id/tv_startDegree"
+        android:max="10"
+        android:progress="1"
+        app:layout_constraintLeft_toRightOf="@+id/tv_duration"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressbar"/>
 
@@ -75,10 +75,10 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:max="360"
-        android:progress="120"
+        android:progress="0"
         app:layout_constraintLeft_toRightOf="@+id/tv_rotateDegree"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDegree_bar"/>
+        app:layout_constraintTop_toBottomOf="@+id/duration_bar"/>
 
     <TextView
         android:id="@+id/tv_sweep"
@@ -95,7 +95,7 @@
         android:layout_height="50dp"
         android:max="360"
         android:progress="270"
-        app:layout_constraintLeft_toLeftOf="@+id/startDegree_bar"
+        app:layout_constraintLeft_toLeftOf="@+id/duration_bar"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rotateDegree_bar"/>
 

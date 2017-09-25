@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.CheckBox
 import android.widget.SeekBar
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedListener,
         SeekBar.OnSeekBarChangeListener {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
 
         progressBar.setOnProgressChangeListener(this)
 
-        startBar = findViewById(R.id.startDegree_bar) as SeekBar
+        startBar = findViewById(R.id.duration_bar) as SeekBar
         startBar.setOnSeekBarChangeListener(this)
         sweepBar = findViewById(R.id.sweepDegree_bar) as SeekBar
         sweepBar.setOnSeekBarChangeListener(this)
@@ -50,8 +49,8 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar?.id) {
-            R.id.startDegree_bar -> {
-                progressBar.setStartDegree(seekBar?.progress.toFloat())
+            R.id.duration_bar -> {
+                progressBar.setDuration(seekBar?.progress * 500.toLong())
             }
             R.id.rotateDegree_bar -> {
                 progressBar.setRotateDegree(seekBar?.progress.toFloat())
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity(), CircleProgressBar.OnProgressChangedLis
             }
         }
         progressBar.openAnimation(openAnimation.isChecked)
-        progressbar.update()
+        progressBar.update()
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
